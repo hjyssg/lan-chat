@@ -4,12 +4,75 @@
     <title>Chat App</title>
     <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f3f3f3; /* 背景颜色 */
+            font-family: Arial, sans-serif;
+        }
+
+        .lc-chat-box {
+            width: 60%;
+            margin: 20px auto;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+            background-color: white;
+        }
+
+
+        .lc-message {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: block;
+            width: 90%;
+        }
+
+        .lc-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            width: 90%;
+
+        }
+
+        .lc-send-button {
+            display: block;
+            width: 90%;
+        }
+
+
+
+        .lc-timestamp {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .lc-message-content {
+            word-wrap: break-word;
+        }
+
+        .lc-input-container {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="lc-chat-box">
+        <div id="messages"></div>
+        <div class="lc-input-container">
+            <input id="sender" class="lc-sender" placeholder="Your name">
+            <textarea id="message" class="lc-message" placeholder="Type message..."></textarea>
+            <button id="lc-send-button">Send</button>
+        </div>
+    </div>
+
     <script type="text/javascript">
         $(document).ready(function(){
             var socket = io.connect('http://' + document.domain + ':' + location.port);
 
-            $('form').submit(function(event){
-                event.preventDefault();
+            $('#lc-send-button').click(function(){
                 var sender = $('#sender').val();
                 var message = $('#message').val();
                 socket.emit('chat message', {
@@ -17,7 +80,6 @@
                     message: message
                 });
                 $('#message').val('').focus();
-                return false;
             });
 
             socket.on('chat message', function(data){
@@ -25,20 +87,18 @@
                 var sender = data.sender;
                 var message = data.message;
 
-                var formattedTime = new Date(timestamp).toLocaleString(); // 转换时间格式
+                var formattedTime = new Date(timestamp).toLocaleTimeString();
 
-                $('#messages').append($('<li>').text(sender + ' (' + formattedTime + '): ' + message));
+                var messageDiv = $('<div>').addClass('lc-message');
+                var senderDiv = $('<div>').addClass('lc-sender').text(sender);
+                var timestampDiv = $('<div>').addClass('lc-timestamp').text(formattedTime);
+                var contentDiv = $('<div>').addClass('lc-message-content').text(message);
+
+                messageDiv.append(senderDiv, timestampDiv, contentDiv);
+                $('#messages').append(messageDiv);
                 window.scrollTo(0, document.body.scrollHeight);
             });
         });
     </script>
-</head>
-<body>
-    <ul id="messages"></ul>
-    <form>
-        <input id="sender" placeholder="Your name">
-        <input id="message" placeholder="Type message...">
-        <button>Send</button>
-    </form>
 </body>
 </html>
