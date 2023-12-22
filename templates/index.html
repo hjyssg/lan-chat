@@ -10,16 +10,24 @@
 
             $('form').submit(function(event){
                 event.preventDefault();
+                var sender = $('#sender').val();
+                var message = $('#message').val();
                 socket.emit('chat message', {
-                    sender: $('#sender').val(),
-                    message: $('#message').val()
+                    sender: sender,
+                    message: message
                 });
                 $('#message').val('').focus();
                 return false;
             });
 
-            socket.on('chat message', function(msg){
-                $('#messages').append($('<li>').text(msg.sender + ': ' + msg.message));
+            socket.on('chat message', function(data){
+                var timestamp = data.timestamp;
+                var sender = data.sender;
+                var message = data.message;
+
+                var formattedTime = new Date(timestamp).toLocaleString(); // 转换时间格式
+
+                $('#messages').append($('<li>').text(sender + ' (' + formattedTime + '): ' + message));
                 window.scrollTo(0, document.body.scrollHeight);
             });
         });
