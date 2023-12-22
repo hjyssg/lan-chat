@@ -2,6 +2,8 @@
 
 This is a simple chat application built with Flask and Socket.IO, allowing users to communicate in real-time via a web interface.
 
+<img src="screenshot/01.png" alt="screenshot-01" width="600"/>
+
 ## Table of Contents
 
 - [Installation](#installation)
