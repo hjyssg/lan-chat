@@ -4,59 +4,9 @@
     <title>Chat App</title>
     <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            background-color: #f3f3f3; /* 背景颜色 */
-            font-family: Arial, sans-serif;
-        }
+    <link rel="stylesheet" href="static/style.css"> 
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
 
-        .lc-chat-box {
-            width: 60%;
-            margin: 20px auto;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
-            background-color: white;
-        }
-
-
-        .lc-message {
-            margin-bottom: 10px;
-            padding: 5px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            display: block;
-            width: 90%;
-        }
-
-        .lc-sender {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-            width: 90%;
-
-        }
-
-        .lc-send-button {
-            display: block;
-            width: 90%;
-        }
-
-
-
-        .lc-timestamp {
-            font-size: 0.8em;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .lc-message-content {
-            word-wrap: break-word;
-        }
-
-        .lc-input-container {
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <body>
     <div class="lc-chat-box">
@@ -84,7 +34,7 @@
 
             socket.on('chat message', function(data){
                 var timestamp = data.timestamp;
-                var sender = data.sender;
+                var sender = data.sender || "unknown";
                 var message = data.message;
 
                 var formattedTime = new Date(timestamp).toLocaleTimeString();

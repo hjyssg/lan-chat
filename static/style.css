@@ -1,0 +1,51 @@
+ body {
+            background-color: #f3f3f3; /* 背景颜色 */
+            font-family: Arial, sans-serif;
+        }
+
+        .lc-chat-box {
+            width: 60%;
+            margin: 20px auto;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+            background-color: white;
+        }
+
+
+        .lc-message {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: block;
+            width: 90%;
+        }
+
+        .lc-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            width: 90%;
+
+        }
+
+        .lc-send-button {
+            display: block;
+            width: 90%;
+        }
+
+
+
+        .lc-timestamp {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .lc-message-content {
+            word-wrap: break-word;
+        }
+
+        .lc-input-container {
+            margin-bottom: 10px;
+        }
